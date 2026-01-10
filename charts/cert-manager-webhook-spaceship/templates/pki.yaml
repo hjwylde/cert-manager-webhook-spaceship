@@ -1,6 +1,4 @@
 ---
-# Create a selfsigned Issuer, in order to create a root CA certificate for
-# signing webhook serving certificates
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -13,10 +11,7 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   selfSigned: {}
-
 ---
-
-# Generate a CA Certificate used to sign certificates for the webhook
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -34,10 +29,7 @@ spec:
     name: {{ include "spaceship-webhook.selfSignedIssuer" . }}
   commonName: "ca.spaceship-webhook.cert-manager"
   isCA: true
-
 ---
-
-# Create an Issuer that uses the above generated CA certificate to issue certs
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -51,10 +43,7 @@ metadata:
 spec:
   ca:
     secretName: {{ include "spaceship-webhook.rootCACertificate" . }}
-
 ---
-
-# Finally, generate a serving certificate for the webhook to use
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:

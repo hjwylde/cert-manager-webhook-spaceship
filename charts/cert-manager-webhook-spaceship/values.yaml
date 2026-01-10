@@ -1,4 +1,4 @@
-groupName: spaceship-webhook.cavetrolls.org
+groupName: cert-manager-webhook-spaceship.cavetrolls.org
 
 certManager:
   namespace: cert-manager
