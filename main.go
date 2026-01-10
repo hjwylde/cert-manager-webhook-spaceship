@@ -40,7 +40,7 @@ type customDNSProviderSolver struct {
 	// 3. uncomment the relevant code in the Initialize method below
 	// 4. ensure your webhook's service account has the required RBAC role
 	//    assigned to it for interacting with the Kubernetes APIs you need.
-	//client kubernetes.Clientset
+	// client kubernetes.Clientset
 }
 
 // customDNSProviderConfig is a structure that is used to decode into when
@@ -63,8 +63,8 @@ type customDNSProviderConfig struct {
 	// These fields will be set by users in the
 	// `issuer.spec.acme.dns01.providers.webhook.config` field.
 
-	//Email           string `json:"email"`
-	//APIKeySecretRef v1alpha1.SecretKeySelector `json:"apiKeySecretRef"`
+	// Email           string `json:"email"`
+	// APIKeySecretRef v1alpha1.SecretKeySelector `json:"apiKeySecretRef"`
 }
 
 // Name is used as the name for this DNS solver when referencing it on the ACME
@@ -74,7 +74,7 @@ type customDNSProviderConfig struct {
 // within a single webhook deployment**.
 // For example, `cloudflare` may be used as the name of a solver.
 func (c *customDNSProviderSolver) Name() string {
-	return "my-custom-solver"
+	return "spaceship-solver"
 }
 
 // Present is responsible for actually presenting the DNS record with the
@@ -116,17 +116,17 @@ func (c *customDNSProviderSolver) CleanUp(ch *v1alpha1.ChallengeRequest) error {
 // The stopCh can be used to handle early termination of the webhook, in cases
 // where a SIGTERM or similar signal is sent to the webhook process.
 func (c *customDNSProviderSolver) Initialize(kubeClientConfig *rest.Config, stopCh <-chan struct{}) error {
-	///// UNCOMMENT THE BELOW CODE TO MAKE A KUBERNETES CLIENTSET AVAILABLE TO
-	///// YOUR CUSTOM DNS PROVIDER
+	// /// UNCOMMENT THE BELOW CODE TO MAKE A KUBERNETES CLIENTSET AVAILABLE TO
+	// /// YOUR CUSTOM DNS PROVIDER
 
-	//cl, err := kubernetes.NewForConfig(kubeClientConfig)
-	//if err != nil {
+	// cl, err := kubernetes.NewForConfig(kubeClientConfig)
+	// if err != nil {
 	//	return err
-	//}
+	// }
 	//
-	//c.client = cl
+	// c.client = cl
 
-	///// END OF CODE TO MAKE KUBERNETES CLIENTSET AVAILABLE
+	// /// END OF CODE TO MAKE KUBERNETES CLIENTSET AVAILABLE
 	return nil
 }
 

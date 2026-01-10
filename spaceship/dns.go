@@ -1,4 +1,4 @@
-package example
+package spaceship
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"github.com/miekg/dns"
 )
 
-func (e *exampleSolver) handleDNSRequest(w dns.ResponseWriter, req *dns.Msg) {
+func (e *solver) handleDNSRequest(w dns.ResponseWriter, req *dns.Msg) {
 	msg := new(dns.Msg)
 	msg.SetReply(req)
 	switch req.Opcode {
@@ -21,7 +21,7 @@ func (e *exampleSolver) handleDNSRequest(w dns.ResponseWriter, req *dns.Msg) {
 	w.WriteMsg(msg)
 }
 
-func (e *exampleSolver) addDNSAnswer(q dns.Question, msg *dns.Msg, req *dns.Msg) error {
+func (e *solver) addDNSAnswer(q dns.Question, msg *dns.Msg, req *dns.Msg) error {
 	switch q.Qtype {
 	// Always return loopback for any A query
 	case dns.TypeA:
@@ -50,14 +50,14 @@ func (e *exampleSolver) addDNSAnswer(q dns.Question, msg *dns.Msg, req *dns.Msg)
 
 	// NS and SOA are for authoritative lookups, return obviously invalid data
 	case dns.TypeNS:
-		rr, err := dns.NewRR(fmt.Sprintf("%s 5 IN NS ns.example-acme-webook.invalid.", q.Name))
+		rr, err := dns.NewRR(fmt.Sprintf("%s 5 IN NS ns.spaceship-acme-webook.invalid.", q.Name))
 		if err != nil {
 			return err
 		}
 		msg.Answer = append(msg.Answer, rr)
 		return nil
 	case dns.TypeSOA:
-		rr, err := dns.NewRR(fmt.Sprintf("%s 5 IN SOA %s 20 5 5 5 5", "ns.example-acme-webook.invalid.", "ns.example-acme-webook.invalid."))
+		rr, err := dns.NewRR(fmt.Sprintf("%s 5 IN SOA %s 20 5 5 5 5", "ns.spaceship-acme-webook.invalid.", "ns.spaceship-acme-webook.invalid."))
 		if err != nil {
 			return err
 		}

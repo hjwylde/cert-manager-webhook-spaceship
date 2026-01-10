@@ -1,4 +1,4 @@
-module github.com/cert-manager/webhook-example
+module github.com/hjwylde/cert-manager-webhook-spaceship
 
 go 1.25.0
 
