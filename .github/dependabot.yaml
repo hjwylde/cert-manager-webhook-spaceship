@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: docker
+    directories:
+      - "**/*"
+    open-pull-requests-limit: 10
+    schedule:
+      interval: daily
+      time: "18:00"
+      timezone: Pacific/Auckland
+
+  - package-ecosystem: github-actions
+    directories:
+      - ".github/**/*"
+    open-pull-requests-limit: 10
+    schedule:
+      interval: weekly
