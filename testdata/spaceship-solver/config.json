@@ -1,1 +1,10 @@
-{}
+{
+  "apiKeySecretRef": {
+    "name": "spaceship-credentials",
+    "key": "api-key"
+  },
+  "apiSecretSecretRef": {
+    "name": "spaceship-credentials",
+    "key": "api-secret"
+  }
+}
