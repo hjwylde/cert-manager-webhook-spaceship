@@ -10,6 +10,30 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 ---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "spaceship-webhook.fullname" . }}:access-secret
+  namespace: {{ .Release.Namespace | quote }}
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "watch"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "spaceship-webhook.fullname" . }}:access-secret
+  namespace: {{ .Release.Namespace | quote }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "spaceship-webhook.fullname" . }}
+    namespace: {{ .Release.Namespace | quote }}
+roleRef:
+  kind: Role
+  name: {{ include "spaceship-webhook.fullname" . }}:access-secret
+  apiGroup: rbac.authorization.k8s.io
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -62,9 +86,9 @@ rules:
   - apiGroups:
       - {{ .Values.groupName }}
     resources:
-      - '*'
+      - "*"
     verbs:
-      - 'create'
+      - "create"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding

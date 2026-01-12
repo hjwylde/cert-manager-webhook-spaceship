@@ -25,9 +25,9 @@ rules:
   - apiGroups:
       - cert-manager-webhook-spaceship.cavetrolls.org
     resources:
-      - '*'
+      - "*"
     verbs:
-      - 'create'
+      - "create"
 ---
 # Source: cert-manager-webhook-spaceship/templates/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -68,6 +68,32 @@ subjects:
     kind: ServiceAccount
     name: cert-manager
     namespace: cert-manager
+---
+# Source: cert-manager-webhook-spaceship/templates/rbac.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cert-manager-webhook-spaceship:access-secret
+  namespace: "cert-manager"
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "watch"]
+---
+# Source: cert-manager-webhook-spaceship/templates/rbac.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cert-manager-webhook-spaceship:access-secret
+  namespace: "cert-manager"
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager-webhook-spaceship
+    namespace: "cert-manager"
+roleRef:
+  kind: Role
+  name: cert-manager-webhook-spaceship:access-secret
+  apiGroup: rbac.authorization.k8s.io
 ---
 # Source: cert-manager-webhook-spaceship/templates/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
