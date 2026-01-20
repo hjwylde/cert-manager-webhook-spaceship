@@ -150,7 +150,7 @@ metadata:
     release: cert-manager-webhook-spaceship
     heritage: Helm
 spec:
-  replicas: 
+  replicas: 1
   selector:
     matchLabels:
       app: cert-manager-webhook-spaceship
