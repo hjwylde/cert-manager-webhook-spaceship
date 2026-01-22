@@ -4,11 +4,7 @@ kind: Service
 metadata:
   name: {{ include "spaceship-webhook.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app: {{ include "spaceship-webhook.name" . }}
-    chart: {{ include "spaceship-webhook.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  labels: {{ include "spaceship-webhook.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:

@@ -4,11 +4,7 @@ kind: ServiceAccount
 metadata:
   name: {{ include "spaceship-webhook.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app: {{ include "spaceship-webhook.name" . }}
-    chart: {{ include "spaceship-webhook.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  labels: {{ include "spaceship-webhook.labels" . | nindent 4 }}
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
@@ -39,11 +35,7 @@ kind: RoleBinding
 metadata:
   name: {{ include "spaceship-webhook.fullname" . }}:webhook-authentication-reader
   namespace: kube-system
-  labels:
-    app: {{ include "spaceship-webhook.name" . }}
-    chart: {{ include "spaceship-webhook.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  labels: {{ include "spaceship-webhook.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -58,11 +50,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: {{ include "spaceship-webhook.fullname" . }}:auth-delegator
-  labels:
-    app: {{ include "spaceship-webhook.name" . }}
-    chart: {{ include "spaceship-webhook.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  labels: {{ include "spaceship-webhook.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -77,11 +65,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ include "spaceship-webhook.fullname" . }}:domain-solver
-  labels:
-    app: {{ include "spaceship-webhook.name" . }}
-    chart: {{ include "spaceship-webhook.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  labels: {{ include "spaceship-webhook.labels" . | nindent 4 }}
 rules:
   - apiGroups:
       - {{ .Values.groupName }}
@@ -94,11 +78,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: {{ include "spaceship-webhook.fullname" . }}:domain-solver
-  labels:
-    app: {{ include "spaceship-webhook.name" . }}
-    chart: {{ include "spaceship-webhook.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  labels: {{ include "spaceship-webhook.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

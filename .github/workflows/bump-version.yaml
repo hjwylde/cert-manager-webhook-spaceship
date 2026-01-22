@@ -38,6 +38,7 @@ jobs:
           make rendered-manifest.yaml IMAGE_TAG=""
           echo '---' > config/manifest.yaml
           yq '... comments=""' _out/rendered-manifest.yaml >> config/manifest.yaml
+          yq -i 'del(... | select(has("helm.sh/chart")) | ."helm.sh/chart")' config/manifest.yaml
 
           if ! git diff --quiet; then
             git add .

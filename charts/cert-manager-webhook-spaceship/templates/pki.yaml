@@ -4,11 +4,7 @@ kind: Issuer
 metadata:
   name: {{ include "spaceship-webhook.selfSignedIssuer" . }}
   namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app: {{ include "spaceship-webhook.name" . }}
-    chart: {{ include "spaceship-webhook.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  labels: {{ include "spaceship-webhook.labels" . | nindent 4 }}
 spec:
   selfSigned: {}
 ---
@@ -17,11 +13,7 @@ kind: Certificate
 metadata:
   name: {{ include "spaceship-webhook.rootCACertificate" . }}
   namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app: {{ include "spaceship-webhook.name" . }}
-    chart: {{ include "spaceship-webhook.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  labels: {{ include "spaceship-webhook.labels" . | nindent 4 }}
 spec:
   secretName: {{ include "spaceship-webhook.rootCACertificate" . }}
   duration: 43800h # 5y
@@ -35,11 +27,7 @@ kind: Issuer
 metadata:
   name: {{ include "spaceship-webhook.rootCAIssuer" . }}
   namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app: {{ include "spaceship-webhook.name" . }}
-    chart: {{ include "spaceship-webhook.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  labels: {{ include "spaceship-webhook.labels" . | nindent 4 }}
 spec:
   ca:
     secretName: {{ include "spaceship-webhook.rootCACertificate" . }}
@@ -49,11 +37,7 @@ kind: Certificate
 metadata:
   name: {{ include "spaceship-webhook.servingCertificate" . }}
   namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app: {{ include "spaceship-webhook.name" . }}
-    chart: {{ include "spaceship-webhook.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  labels: {{ include "spaceship-webhook.labels" . | nindent 4 }}
 spec:
   secretName: {{ include "spaceship-webhook.servingCertificate" . }}
   duration: 8760h # 1y

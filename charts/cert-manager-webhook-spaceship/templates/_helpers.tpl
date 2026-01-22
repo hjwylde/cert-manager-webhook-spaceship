@@ -15,10 +15,6 @@
 {{- end -}}
 {{- end -}}
 
-{{- define "spaceship-webhook.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
 {{- define "spaceship-webhook.selfSignedIssuer" -}}
 {{ printf "%s-selfsign" (include "spaceship-webhook.fullname" .) }}
 {{- end -}}
@@ -33,4 +29,21 @@
 
 {{- define "spaceship-webhook.servingCertificate" -}}
 {{ printf "%s-webhook-tls" (include "spaceship-webhook.fullname" .) }}
+{{- end -}}
+
+{{- define "spaceship-webhook.labels" -}}
+app.kubernetes.io/name: {{ template "spaceship-webhook.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ .Chart.AppVersion }}
+app.kubernetes.io/component: webhook
+app.kubernetes.io/part-of: cert-manager
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end -}}
+
+{{- define "spaceship-webhook.selectorLabels" -}}
+app.kubernetes.io/name: {{ template "spaceship-webhook.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ .Chart.AppVersion }}.
+app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
