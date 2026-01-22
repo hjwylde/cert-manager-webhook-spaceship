@@ -1,6 +1,6 @@
-// package example contains a self-contained example of a webhook that passes the cert-manager
+// package spaceship contains a self-contained example of a webhook that passes the cert-manager
 // DNS conformance tests
-package example
+package spaceship
 
 import (
 	"fmt"
@@ -13,32 +13,32 @@ import (
 	"k8s.io/client-go/rest"
 )
 
-type exampleSolver struct {
+type solver struct {
 	name       string
 	server     *dns.Server
 	txtRecords map[string]string
 	sync.RWMutex
 }
 
-func (e *exampleSolver) Name() string {
+func (e *solver) Name() string {
 	return e.name
 }
 
-func (e *exampleSolver) Present(ch *acme.ChallengeRequest) error {
+func (e *solver) Present(ch *acme.ChallengeRequest) error {
 	e.Lock()
 	e.txtRecords[ch.ResolvedFQDN] = ch.Key
 	e.Unlock()
 	return nil
 }
 
-func (e *exampleSolver) CleanUp(ch *acme.ChallengeRequest) error {
+func (e *solver) CleanUp(ch *acme.ChallengeRequest) error {
 	e.Lock()
 	delete(e.txtRecords, ch.ResolvedFQDN)
 	e.Unlock()
 	return nil
 }
 
-func (e *exampleSolver) Initialize(kubeClientConfig *rest.Config, stopCh <-chan struct{}) error {
+func (e *solver) Initialize(kubeClientConfig *rest.Config, stopCh <-chan struct{}) error {
 	go func(done <-chan struct{}) {
 		<-done
 		if err := e.server.Shutdown(); err != nil {
@@ -55,8 +55,8 @@ func (e *exampleSolver) Initialize(kubeClientConfig *rest.Config, stopCh <-chan 
 }
 
 func New(port string) webhook.Solver {
-	e := &exampleSolver{
-		name:       "example",
+	e := &solver{
+		name:       "spaceship",
 		txtRecords: make(map[string]string),
 	}
 	e.server = &dns.Server{
