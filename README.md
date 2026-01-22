@@ -1,63 +1,109 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/cert-manager/cert-manager/d53c0b9270f8cd90d908460d69502694e1838f5f/logo/logo-small.png" height="256" width="256" alt="cert-manager project logo" />
+  <img src="https://raw.githubusercontent.com/hjwylde/cert-manager-webhook-spaceship/main/assets/cert-manager-logo.png" height="256" width="256" alt="cert-manager logo" />
+  <img src="https://raw.githubusercontent.com/hjwylde/cert-manager-webhook-spaceship/main/assets/spaceship-logo.png" height="256" width="256" alt="spaceship logo" />
 </p>
 
-# ACME webhook - Spaceship.com
+# ACME Webhook - Spaceship
 
-The ACME issuer type supports an optional 'webhook' solver, which can be used
-to implement custom DNS01 challenge solving logic.
+This solver is used as part of the [cert-manager ACME issuer](https://cert-manager.io/docs/configuration/acme/); it is 
+an out-of-tree webhook implementation that can handle DNS01 challenges for [Spaceship](https://www.spaceship.com/) 
+domains.
 
-This is useful if you need to use cert-manager with a DNS provider that is not
-officially supported in cert-manager core.
+## Requirements
 
-## Why not in core?
+* [Kubernetes](https://kubernetes.io/)
+* [cert-manager](https://cert-manager.io/)
 
-As the project & adoption has grown, there has been an influx of DNS provider
-pull requests to our core codebase. As this number has grown, the test matrix
-has become un-maintainable and so, it's not possible for us to certify that
-providers work to a sufficient level.
+It is expected that you are familiar with Kubernetes and cert-manager already, and have a cluster running with 
+cert-manager pre-installed.
 
-By creating this 'interface' between cert-manager and DNS providers, we allow
-users to quickly iterate and test out new integrations, and then packaging
-those up themselves as 'extensions' to cert-manager.
+## Installation
 
-We can also then provide a standardised 'testing framework', or set of
-conformance tests, which allow us to validate that a DNS provider works as
-expected.
+The installation steps assume that cert-manager is running in the `cert-manager` namespace. If this is not the case, 
+then adjust the steps to ensure the webhook is installed into the same namespace as cert-manager.
 
-## Creating your own webhook
-
-Webhook's themselves are deployed as Kubernetes API services, in order to allow
-administrators to restrict access to webhooks with Kubernetes RBAC.
-
-This is important, as otherwise it'd be possible for anyone with access to your
-webhook to complete ACME challenge validations and obtain certificates.
-
-To make the set up of these webhook's easier, we provide a template repository
-that can be used to get started quickly.
-
-When implementing your webhook, you should set the `groupName` in the
-[values.yml](charts/cert-manager-webhook-spaceship/values.yaml) of your chart to a domain name that 
-you - as the webhook-author - own. It should not need to be adjusted by the users of
-your chart.
-
-### Creating your own repository
-
-### Running the test suite
-
-All DNS providers **must** run the DNS01 provider conformance testing suite,
-else they will have undetermined behaviour when used with cert-manager.
-
-**It is essential that you configure and run the test suite when creating a
-DNS01 webhook.**
-
-An example Go test file has been provided in [main_test.go](https://github.com/cert-manager/webhook-example/blob/master/main_test.go).
-
-You can run the test suite with:
+### Manifest
 
 ```bash
-$ TEST_ZONE_NAME=example.com. make test
+kubectl apply -f https://raw.githubusercontent.com/hjwylde/cert-manager-webhook-spaceship/v0.1.0/config/manifest.yaml
 ```
 
-The example file has a number of areas you must fill in and replace with your
-own options in order for tests to pass.
+### Kustomize
+
+```yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - github.com/hjwylde/cert-manager-webhook-spaceship/config?ref=v0.1.0
+```
+
+### Helm
+
+```bash
+helm repo add cert-manager-webhook-spaceship https://hjwylde.github.io/cert-manager-webhook-spaceship
+helm install --namespace cert-manager cert-manager-webhook-spaceship cert-manager-webhook-spaceship/cert-manager-webhook-spaceship
+```
+
+## Configuration
+
+### Issuer
+
+Create a `ClusterIssuer` or `Issuer` resource. N.B.,
+
+* This example uses the Let's Encrypt staging URL; you will need to replace it with the production URL once the webhook 
+  is set up and working
+* You must replace the example email address with your own email address
+* The `groupName` and `solverName` do not need to be modified
+
+```yaml
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: user@example.com
+    profile: tlsserver
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    solvers:
+      - dns01:
+          webhook:
+            groupName: cert-manager-webhook-spaceship.hjwylde.github.io
+            solverName: spaceship
+            config:
+              apiKeySecretRef:
+                name: spaceship-credentials
+                namespace: cert-manager
+                key: api-key
+              apiSecretSecretRef:
+                name: spaceship-credentials
+                namespace: cert-manager
+                key: api-secret
+```
+
+### Credentials
+
+Create a secret that contains your Spaceship credentials. To get the required credentials:
+* Visit [spaceship.com](https://spaceship.com), and log in
+* Navigate to the API Manager application
+* Create a new API key with permissions for "DNS Records - Write"; you'll need both the API key and secret
+* Encode the API key and secret in base64 (`printf "%s" "<api-key>" | base64`; `printf "%s" "<api-secret>" | base64`)
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: spaceship-credentials
+  namespace: cert-manager
+data:
+  api-key: <base64-api-key>
+  api-secret: <base64-api-secret>
+```
+
+### Certificate
+
+Finally, you can create a certificate using your [preferred approach](https://cert-manager.io/docs/usage/certificate/).
