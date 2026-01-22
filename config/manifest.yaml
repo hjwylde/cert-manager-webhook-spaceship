@@ -10,7 +10,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -22,7 +21,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
       - cert-manager-webhook-spaceship.hjwylde.github.io
@@ -41,7 +39,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -62,7 +59,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -108,7 +104,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -130,7 +125,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
   ports:
@@ -153,7 +147,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   selector:
@@ -161,7 +154,6 @@ spec:
       app.kubernetes.io/name: cert-manager-webhook-spaceship
       app.kubernetes.io/instance: cert-manager-webhook-spaceship
       app.kubernetes.io/version: 0.1.0.
-      app.kubernetes.io/managed-by: Helm
   template:
     metadata:
       labels:
@@ -170,7 +162,6 @@ spec:
         app.kubernetes.io/version: 0.1.0
         app.kubernetes.io/component: webhook
         app.kubernetes.io/part-of: cert-manager
-        app.kubernetes.io/managed-by: Helm
     spec:
       serviceAccountName: cert-manager-webhook-spaceship
       containers:
@@ -217,7 +208,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
   annotations:
     cert-manager.io/inject-ca-from: "cert-manager/cert-manager-webhook-spaceship-webhook-tls"
 spec:
@@ -240,7 +230,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 spec:
   secretName: cert-manager-webhook-spaceship-ca
   duration: 43800h
@@ -260,7 +249,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 spec:
   secretName: cert-manager-webhook-spaceship-webhook-tls
   duration: 8760h
@@ -282,7 +270,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 spec:
   selfSigned: {}
 ---
@@ -297,7 +284,6 @@ metadata:
     app.kubernetes.io/version: 0.1.0
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
-    app.kubernetes.io/managed-by: Helm
 spec:
   ca:
     secretName: cert-manager-webhook-spaceship-ca
