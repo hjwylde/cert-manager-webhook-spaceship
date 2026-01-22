@@ -2,8 +2,8 @@ GO ?= $(shell which go)
 OS ?= $(shell $(GO) env GOOS)
 ARCH ?= $(shell $(GO) env GOARCH)
 
-IMAGE_NAME := "ghcr.io/hjwylde/cert-manager-webhook-spaceship"
-IMAGE_TAG := "latest"
+IMAGE_NAME := ghcr.io/hjwylde/cert-manager-webhook-spaceship
+IMAGE_TAG := latest
 
 OUT := $(shell pwd)/_out
 
@@ -37,8 +37,8 @@ rendered-manifest.yaml: $(OUT)/rendered-manifest.yaml
 $(OUT)/rendered-manifest.yaml: $(HELM_FILES) | $(OUT)
 	helm template cert-manager-webhook-spaceship \
 		--namespace cert-manager \
-    	--set image.repository=$(IMAGE_NAME) \
-    	--set image.tag=$(IMAGE_TAG) \
+    	--set image.repository="$(IMAGE_NAME)" \
+    	--set image.tag="$(IMAGE_TAG)" \
     	charts/cert-manager-webhook-spaceship > $@
 
 _test $(OUT) _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH):

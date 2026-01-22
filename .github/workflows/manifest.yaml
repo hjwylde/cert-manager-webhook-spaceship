@@ -1,0 +1,45 @@
+name: Manifest (Regenerate and Push)
+
+on:
+  push:
+    branches: [ 'main' ]
+    paths:
+      - charts/**
+      - config/manifest.yaml
+      - Makefile
+  workflow_dispatch:
+
+jobs:
+  regenerate-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Query actor name
+        id: query-actor-name
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const actor = context.actor;
+            const { data: user } = await github.rest.users.getByUsername({ username: actor });
+
+            core.setOutput('name', user.name || actor);
+
+      - name: Set Git credentials
+        run: |
+          git config --global user.name "${{ steps.query-actor-name.outputs.name }}"
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Generate manifest and push
+        run: |
+          make rendered-manifest.yaml IMAGE_TAG=""
+          echo '---' > config/manifest.yaml
+          yq '... comments=""' _out/rendered-manifest.yaml >> config/manifest.yaml
+          
+          if ! git diff --quiet; then
+            git add .
+            git commit -m 'Regenerate config/manifest.yaml'
+            git push
+          fi

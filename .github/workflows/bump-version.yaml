@@ -1,0 +1,46 @@
+name: Bump Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version
+        type: string
+        required: true
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Query actor name
+        id: query-actor-name
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const actor = context.actor;
+            const { data: user } = await github.rest.users.getByUsername({ username: actor });
+
+            core.setOutput('name', user.name || actor);
+
+      - name: Set Git credentials
+        run: |
+          git config --global user.name "${{ steps.query-actor-name.outputs.name }}"
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Bump version and push
+        run: |
+          yq -i '.version= "${{ inputs.version }}"' charts/cert-manager-webhook-spaceship/Chart.yaml
+
+          make rendered-manifest.yaml IMAGE_TAG=""
+          echo '---' > config/manifest.yaml
+          yq '... comments=""' _out/rendered-manifest.yaml >> config/manifest.yaml
+
+          if ! git diff --quiet; then
+            git add .
+            git commit -m 'Bump version to ${{ inputs.version }}'
+            git push
+          fi

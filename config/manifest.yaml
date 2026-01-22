@@ -1,5 +1,4 @@
 ---
-# Source: cert-manager-webhook-spaceship/templates/rbac.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -11,7 +10,6 @@ metadata:
     release: cert-manager-webhook-spaceship
     heritage: Helm
 ---
-# Source: cert-manager-webhook-spaceship/templates/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -29,7 +27,6 @@ rules:
     verbs:
       - "create"
 ---
-# Source: cert-manager-webhook-spaceship/templates/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -49,7 +46,6 @@ subjects:
     name: cert-manager-webhook-spaceship
     namespace: cert-manager
 ---
-# Source: cert-manager-webhook-spaceship/templates/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -69,7 +65,6 @@ subjects:
     name: cert-manager
     namespace: cert-manager
 ---
-# Source: cert-manager-webhook-spaceship/templates/rbac.yaml
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -80,7 +75,6 @@ rules:
     resources: ["secrets"]
     verbs: ["get", "watch"]
 ---
-# Source: cert-manager-webhook-spaceship/templates/rbac.yaml
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -95,7 +89,6 @@ roleRef:
   name: cert-manager-webhook-spaceship:access-secret
   apiGroup: rbac.authorization.k8s.io
 ---
-# Source: cert-manager-webhook-spaceship/templates/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -116,7 +109,6 @@ subjects:
     name: cert-manager-webhook-spaceship
     namespace: cert-manager
 ---
-# Source: cert-manager-webhook-spaceship/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -138,7 +130,6 @@ spec:
     app: cert-manager-webhook-spaceship
     release: cert-manager-webhook-spaceship
 ---
-# Source: cert-manager-webhook-spaceship/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -164,7 +155,7 @@ spec:
       serviceAccountName: cert-manager-webhook-spaceship
       containers:
         - name: cert-manager-webhook-spaceship
-          image: "ghcr.io/hjwylde/cert-manager-webhook-spaceship:latest"
+          image: "ghcr.io/hjwylde/cert-manager-webhook-spaceship:v0.1.0"
           imagePullPolicy: IfNotPresent
           args:
             - --tls-cert-file=/tls/tls.crt
@@ -190,14 +181,12 @@ spec:
             - name: certs
               mountPath: /tls
               readOnly: true
-          resources:
-            {}
+          resources: {}
       volumes:
         - name: certs
           secret:
             secretName: cert-manager-webhook-spaceship-webhook-tls
 ---
-# Source: cert-manager-webhook-spaceship/templates/apiservice.yaml
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService
 metadata:
@@ -218,7 +207,6 @@ spec:
     namespace: cert-manager
   version: v1alpha1
 ---
-# Source: cert-manager-webhook-spaceship/templates/pki.yaml
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -231,13 +219,12 @@ metadata:
     heritage: Helm
 spec:
   secretName: cert-manager-webhook-spaceship-ca
-  duration: 43800h # 5y
+  duration: 43800h
   issuerRef:
     name: cert-manager-webhook-spaceship-selfsign
   commonName: "ca.spaceship-webhook.cert-manager"
   isCA: true
 ---
-# Source: cert-manager-webhook-spaceship/templates/pki.yaml
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -250,15 +237,14 @@ metadata:
     heritage: Helm
 spec:
   secretName: cert-manager-webhook-spaceship-webhook-tls
-  duration: 8760h # 1y
+  duration: 8760h
   issuerRef:
     name: cert-manager-webhook-spaceship-ca
   dnsNames:
-  - cert-manager-webhook-spaceship
-  - cert-manager-webhook-spaceship.cert-manager
-  - cert-manager-webhook-spaceship.cert-manager.svc
+    - cert-manager-webhook-spaceship
+    - cert-manager-webhook-spaceship.cert-manager
+    - cert-manager-webhook-spaceship.cert-manager.svc
 ---
-# Source: cert-manager-webhook-spaceship/templates/pki.yaml
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -272,7 +258,6 @@ metadata:
 spec:
   selfSigned: {}
 ---
-# Source: cert-manager-webhook-spaceship/templates/pki.yaml
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
