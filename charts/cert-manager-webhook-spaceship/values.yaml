@@ -1,4 +1,4 @@
-groupName: spaceship-webhook.hjwylde.github.io
+groupName: cert-manager-webhook-spaceship.hjwylde.github.io
 
 certManager:
   namespace: cert-manager
