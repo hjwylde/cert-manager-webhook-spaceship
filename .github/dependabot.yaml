@@ -1,17 +1,19 @@
 version: 2
 updates:
   - package-ecosystem: docker
-    directories:
-      - "**/*"
-    open-pull-requests-limit: 10
+    directory: /
+    open-pull-requests-limit: 3
     schedule:
-      interval: daily
-      time: "18:00"
-      timezone: Pacific/Auckland
+      interval: weekly
 
   - package-ecosystem: github-actions
-    directories:
-      - ".github/**/*"
-    open-pull-requests-limit: 10
+    directory: /
+    open-pull-requests-limit: 3
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: gomod
+    directory: /
+    open-pull-requests-limit: 3
     schedule:
       interval: weekly
