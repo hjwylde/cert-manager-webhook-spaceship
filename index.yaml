@@ -5,6 +5,31 @@ entries:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
     appVersion: 0.1.0
+    created: "2026-01-23T05:03:20.024736867Z"
+    description: A cert-manager webhook for solving DNS challenges using the Spaceship
+      API
+    digest: 153bf81f8f6120b24e469ca70918ed8bc164fd98a6fe37ac26674a8987879e47
+    home: https://github.com/hjwylde/cert-manager-webhook-spaceship
+    icon: https://raw.githubusercontent.com/cert-manager/cert-manager/master/logo/logo-small.png
+    keywords:
+    - acme
+    - cert-manager
+    - lego
+    - letsencrypt
+    - spaceship
+    - tls
+    maintainers:
+    - name: Henry Wylde
+    name: cert-manager-webhook-spaceship
+    sources:
+    - https://github.com/hjwylde/cert-manager-webhook-spaceship
+    urls:
+    - https://github.com/hjwylde/cert-manager-webhook-spaceship/releases/download/cert-manager-webhook-spaceship-0.1.1/cert-manager-webhook-spaceship-0.1.1.tgz
+    version: 0.1.1
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+    apiVersion: v2
+    appVersion: 0.1.0
     created: "2026-01-22T06:22:50.882929512Z"
     description: A cert-manager webhook for solving DNS challenges using the Spaceship
       API
@@ -26,4 +51,4 @@ entries:
     urls:
     - https://github.com/hjwylde/cert-manager-webhook-spaceship/releases/download/cert-manager-webhook-spaceship-0.1.0/cert-manager-webhook-spaceship-0.1.0.tgz
     version: 0.1.0
-generated: "2026-01-22T06:22:50.882939161Z"
+generated: "2026-01-23T05:03:20.024745613Z"
