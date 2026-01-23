@@ -33,6 +33,7 @@ jobs:
 
       - name: Bump version and push
         run: |
+          yq -i '.appVersion= "${{ inputs.version }}"' charts/cert-manager-webhook-spaceship/Chart.yaml
           yq -i '.version= "${{ inputs.version }}"' charts/cert-manager-webhook-spaceship/Chart.yaml
 
           make rendered-manifest.yaml IMAGE_TAG=""
