@@ -25,7 +25,7 @@ then adjust the steps to ensure the webhook is installed into the same namespace
 ### Manifest
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/hjwylde/cert-manager-webhook-spaceship/v0.1.1/config/manifest.yaml
+kubectl apply -f https://raw.githubusercontent.com/hjwylde/cert-manager-webhook-spaceship/v0.1.2/config/manifest.yaml
 ```
 
 ### Kustomize
@@ -34,7 +34,7 @@ kubectl apply -f https://raw.githubusercontent.com/hjwylde/cert-manager-webhook-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - github.com/hjwylde/cert-manager-webhook-spaceship/config?ref=v0.1.1
+  - github.com/hjwylde/cert-manager-webhook-spaceship/config?ref=v0.1.2
 ```
 
 ### Helm

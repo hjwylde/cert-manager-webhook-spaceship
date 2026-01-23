@@ -7,7 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 ---
@@ -18,7 +18,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 rules:
@@ -36,7 +36,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 roleRef:
@@ -56,7 +56,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 roleRef:
@@ -101,7 +101,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 roleRef:
@@ -122,7 +122,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 spec:
@@ -144,7 +144,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 spec:
@@ -158,14 +158,14 @@ spec:
       labels:
         app.kubernetes.io/name: cert-manager-webhook-spaceship
         app.kubernetes.io/instance: cert-manager-webhook-spaceship
-        app.kubernetes.io/version: 0.1.0
+        app.kubernetes.io/version: 0.1.2
         app.kubernetes.io/component: webhook
         app.kubernetes.io/part-of: cert-manager
     spec:
       serviceAccountName: cert-manager-webhook-spaceship
       containers:
         - name: cert-manager-webhook-spaceship
-          image: "ghcr.io/hjwylde/cert-manager-webhook-spaceship:0.1.0"
+          image: "ghcr.io/hjwylde/cert-manager-webhook-spaceship:0.1.2"
           imagePullPolicy: IfNotPresent
           args:
             - --tls-cert-file=/tls/tls.crt
@@ -204,7 +204,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
   annotations:
@@ -226,7 +226,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 spec:
@@ -245,7 +245,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 spec:
@@ -266,7 +266,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 spec:
@@ -280,7 +280,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-webhook-spaceship
     app.kubernetes.io/instance: cert-manager-webhook-spaceship
-    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/version: 0.1.2
     app.kubernetes.io/component: webhook
     app.kubernetes.io/part-of: cert-manager
 spec:
