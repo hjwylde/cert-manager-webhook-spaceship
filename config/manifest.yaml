@@ -153,7 +153,6 @@ spec:
     matchLabels:
       app.kubernetes.io/name: cert-manager-webhook-spaceship
       app.kubernetes.io/instance: cert-manager-webhook-spaceship
-      app.kubernetes.io/version: 0.1.0
   template:
     metadata:
       labels:
