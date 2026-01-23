@@ -17,4 +17,4 @@ maintainers:
 name: cert-manager-webhook-spaceship
 sources:
   - https://github.com/hjwylde/cert-manager-webhook-spaceship
-version: 0.1.0
+version: 0.1.1
