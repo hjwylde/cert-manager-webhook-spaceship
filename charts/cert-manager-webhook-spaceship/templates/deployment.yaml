@@ -33,11 +33,15 @@ spec:
               scheme: HTTPS
               path: /healthz
               port: https
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
           readinessProbe:
             httpGet:
               scheme: HTTPS
               path: /healthz
               port: https
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
           volumeMounts:
             - name: certs
               mountPath: /tls
