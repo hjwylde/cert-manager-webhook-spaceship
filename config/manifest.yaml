@@ -133,8 +133,8 @@ spec:
       protocol: TCP
       name: https
   selector:
-    app: cert-manager-webhook-spaceship
-    release: cert-manager-webhook-spaceship
+    app.kubernetes.io/name: cert-manager-webhook-spaceship
+    app.kubernetes.io/instance: cert-manager-webhook-spaceship
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -182,11 +182,15 @@ spec:
               scheme: HTTPS
               path: /healthz
               port: https
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
           readinessProbe:
             httpGet:
               scheme: HTTPS
               path: /healthz
               port: https
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
           volumeMounts:
             - name: certs
               mountPath: /tls
