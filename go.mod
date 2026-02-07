@@ -3,7 +3,7 @@ module github.com/hjwylde/cert-manager-webhook-spaceship
 go 1.25.0
 
 require (
-	github.com/cert-manager/cert-manager v1.19.2
+	github.com/cert-manager/cert-manager v1.19.3
 	k8s.io/api v0.34.3
 	k8s.io/apiextensions-apiserver v0.34.3
 	k8s.io/apimachinery v0.34.3
