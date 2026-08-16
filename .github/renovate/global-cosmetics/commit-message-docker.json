@@ -1,0 +1,20 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "commitMessageTopic": "Container image {{depName}}"
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchFileNames": [
+        "Dockerfile"
+      ],
+      "commitMessageTopic": "Container dependency {{depName}}"
+    }
+  ]
+}

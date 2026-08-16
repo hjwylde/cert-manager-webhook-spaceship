@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":configMigration",
+    ":disableRateLimiting",
+    ":separateMultipleMajorReleases",
+    "github>hjwylde/cert-manager-webhook-spaceship//.github/renovate/global/automerge.json",
+    "github>hjwylde/cert-manager-webhook-spaceship//.github/renovate/global-cosmetics/commit-message-docker.json",
+    "github>hjwylde/cert-manager-webhook-spaceship//.github/renovate/global-cosmetics/commit-message-github-actions.json",
+    "github>hjwylde/cert-manager-webhook-spaceship//.github/renovate/global-cosmetics/commit-message-golang.json",
+    "github>hjwylde/cert-manager-webhook-spaceship//.github/renovate/global-cosmetics/commit-message-mise.json",
+    "github>hjwylde/cert-manager-webhook-spaceship//.github/renovate/global-cosmetics/pull-request-labels.json",
+    "github>hjwylde/cert-manager-webhook-spaceship//.github/renovate/rules-github/group-updates.json",
+    "github>hjwylde/cert-manager-webhook-spaceship//.github/renovate/rules-golang/enable-automerge.json"
+  ]
+}
