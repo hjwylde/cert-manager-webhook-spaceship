@@ -6,7 +6,7 @@ certManager:
 
 image:
   repository: ghcr.io/hjwylde/cert-manager-webhook-spaceship
-  tag: "@sha256:5f67596e78c6c189d8eac39fa077c57b2cc7f9db3f3ebb4b561aa616f48e76b7"
+  tag: "@sha256:365cfe7364beb2f8a5292394f49a6bfe9033d5ca81160f7890ed00abd940506d"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
