@@ -4,6 +4,14 @@ on:
   push:
     branches: [ 'main' ]
     tags: [ 'v*' ]
+    paths:
+      - internal/**
+      - Dockerfile
+      - docker-bake.hcl
+      - go.mod
+      - go.sum
+      - main.go
+      - mise.toml
   workflow_dispatch:
 
 jobs:
