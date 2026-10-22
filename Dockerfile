@@ -1,4 +1,4 @@
-FROM golang:1.25-alpine3.23@sha256:27b3069b25647beacd3745b0b2c83e2f9b8d3935455a32cd4531236ee1c960e0 AS build_deps
+FROM golang:1.27-alpine3.23@sha256:754d5200fc3edae76d3b6598a9a3fac7e74981ee6a5413ab955025f185753ef2 AS build_deps
 
 RUN apk add --no-cache git
 
